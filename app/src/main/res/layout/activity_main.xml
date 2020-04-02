@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/background">
+
+    <ImageView
+        android:id="@+id/enterimage"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_image_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <LinearLayout
+        android:layout_width="277dp"
+        android:layout_height="485dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.772">
+
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextbackground"
+                android:hint="Your Name"
+                android:padding="15dp" />
+
+
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextbackground"
+                android:hint="Address"
+                android:maxLines="1"
+                android:layout_marginTop="10dp"
+                android:padding="10dp" />
+
+
+
+
+            <EditText
+                android:id="@+id/phoneno"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittextbackground"
+                android:hint="Phone No"
+                android:maxLines="1"
+                android:layout_marginTop="10dp"
+                android:padding="10dp" />
+
+
+
+
+            <EditText
+                android:id="@+id/enterstate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittextbackground"
+                android:hint="State"
+                android:layout_marginTop="10dp"
+                android:maxLines="1"
+                android:padding="10dp" />
+
+
+
+            <EditText
+                android:id="@+id/pincode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittextbackground"
+                android:hint="Pincode"
+                android:layout_marginTop="10dp"
+                android:maxLines="1"
+                android:padding="10dp" />
+
+
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/bloodgroup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittextbackground"
+                android:hint="Bloodgroup"
+                android:layout_marginTop="10dp"
+                android:maxLines="1"
+                android:padding="10dp" />
+
+
+        <TextView
+            android:id="@+id/uploadvalue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.0%"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonadddb"
+        android:layout_width="223dp"
+        android:layout_height="72dp"
+        android:background="@drawable/mainbutton"
+        android:text="Add To DB"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterimage"
+        app:layout_constraintVertical_bias="0.967" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
