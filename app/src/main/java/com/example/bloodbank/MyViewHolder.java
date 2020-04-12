@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class MyViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
-    TextView username, useraddress, userstate, userpin, userphone, userbloodgroup;
+    TextView username, useraddress, userstate, userpin, userphone, userbloodgroup, usercountry;
     Button callbutt, messagebutt;
 
 
@@ -28,6 +28,7 @@ class MyViewHolder extends RecyclerView.ViewHolder {
         userpin = itemView.findViewById(R.id.userpin);
         userphone = itemView.findViewById(R.id.userphoneno);
         userbloodgroup = itemView.findViewById(R.id.userblood1);
+        usercountry = itemView.findViewById(R.id.usercountry);
 
         callbutt = itemView.findViewById(R.id.detailsbutt);
 

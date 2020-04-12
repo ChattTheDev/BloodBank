@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,6 +37,12 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity {
@@ -106,8 +113,9 @@ public class Home extends AppCompatActivity {
                 holder.useraddress.setText("Address: " + model.getAddress());
                 holder.userstate.setText("State: " + model.getState());
                 holder.userpin.setText("Pin: " + model.getPin());
-                holder.userphone.setText( model.getPhoneno());
+                holder.userphone.setText(model.getPhoneno());
                 holder.userbloodgroup.setText("Bloodgroup: " + model.getBloodgroup());
+                holder.usercountry.setText("Country: "+ model.getCountry());
 
                 final String phone = holder.userphone.getText().toString();
                 phone2 = phone;
@@ -116,20 +124,30 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         try {
-                            if (hasPermissions()) {
-                                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                callIntent.setData(Uri.parse("tel:"+phone2));
-
-                                if (ActivityCompat.checkSelfPermission(getBaseContext(),
-                                        android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-
-                                    return;
-                                }
-                                startActivity(callIntent);
-                            } else {
-                                //Since our app doesn't have permission, we have to request one.
-                                requestPerms();
-                            }
+                            Dexter.withActivity(Home.this)
+                                    .withPermission(Manifest.permission.CALL_PHONE)
+                                    .withListener(new PermissionListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.M)
+                                        @Override
+                                        public void onPermissionGranted(PermissionGrantedResponse response) {
+                                            Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                            callIntent.setData(Uri.parse("tel:" + holder.userphone.getText().toString()));
+                                            startActivity(callIntent);
+                                        }
+                                        @Override
+                                        public void onPermissionDenied(PermissionDeniedResponse response)
+                                        {
+                                            Intent intent = new Intent();
+                                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                            intent.setData(uri);
+                                            startActivity(intent);
+                                        }
+                                        @Override
+                                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                            token.continuePermissionRequest();
+                                        }
+                                    }).check();
                         } catch (Exception e){
                             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -168,25 +186,43 @@ public class Home extends AppCompatActivity {
                         b1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                int permissioncheck = ContextCompat.checkSelfPermission(Home.this, Manifest.permission.SEND_SMS);
 
-                                if(permissioncheck==PackageManager.PERMISSION_GRANTED){
+                                try {
+                                    Dexter.withActivity(Home.this)
+                                            .withPermission(Manifest.permission.SEND_SMS)
+                                            .withListener(new PermissionListener() {
+                                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                                @Override
+                                                public void onPermissionGranted(PermissionGrantedResponse response) {
+                                                    String userphoneno = e1.getText().toString().trim();
+                                                    String usermessage = e2.getText().toString().trim();
 
-                                    String userphoneno = e1.getText().toString().trim();
-                                    String usermessage = e2.getText().toString().trim();
+                                                    SmsManager smsManager = SmsManager.getDefault();
+                                                    smsManager.sendTextMessage(userphoneno, null, usermessage, null, null );
+                                                    Toast.makeText(Home.this, "Message Sent", Toast.LENGTH_LONG).show();
 
-                                    SmsManager smsManager = SmsManager.getDefault();
-                                    smsManager.sendTextMessage(userphoneno, null, usermessage, null, null );
-                                    Toast.makeText(Home.this, "Message Sent", Toast.LENGTH_LONG).show();
-
-
+                                                }
+                                                @Override
+                                                public void onPermissionDenied(PermissionDeniedResponse response)
+                                                {
+                                                    Intent intent = new Intent();
+                                                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                                    intent.setData(uri);
+                                                    startActivity(intent);
+                                                }
+                                                @Override
+                                                public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                                    token.continuePermissionRequest();
+                                                }
+                                            }).check();
+                                } catch (Exception e){
+                                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                                else{
-                                    ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.SEND_SMS}, PERMS_REQUEST_CODE);
 
-                                }
                             }
                         });
+
 
 
 
@@ -218,79 +254,7 @@ public class Home extends AppCompatActivity {
 
 
 
-    private void requestPerms() {
-        String[] permissions = new String[]{Manifest.permission.CALL_PHONE};
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            requestPermissions(permissions,PERMS_REQUEST_CODE);
-        }
-    }
-
-    private boolean hasPermissions(){
-        int res = 0;
-        //string array of permissions,
-        String[] permissions = new String[]{Manifest.permission.CALL_PHONE};
-
-        for (String perms : permissions){
-            res = checkCallingOrSelfPermission(perms);
-            if (!(res == PackageManager.PERMISSION_GRANTED)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        boolean allowed = true;
-        //boolean allowed1 = true;
-
-
-        switch (requestCode){
-            case PERMS_REQUEST_CODE:
-
-                for (int res : grantResults){
-                    // if user granted all permissions.
-                    allowed = allowed && (res == PackageManager.PERMISSION_GRANTED);
-                 //   allowed1 = allowed1 && (res == PackageManager.PERMISSION_GRANTED);
-
-                }
-
-                break;
-            default:
-                // if user not granted permissions.
-                allowed = false;
-               // allowed1 = false;
-
-                break;
-        }
-
-        if (allowed){
-            //user granted all permissions we can perform our task.
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:"+phone2));
-
-            if (ActivityCompat.checkSelfPermission(getBaseContext(),
-                    android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-
-                return;
-            }
-            startActivity(callIntent);
-        }
-
-       /* if(allowed1){
-            String userphoneno = c;
-            String usermessage = d;
-
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(userphoneno, null, usermessage, null, null );
-            Toast.makeText(Home.this, "Message Sent", Toast.LENGTH_LONG).show();
-
-        }*/
-
-
-
-    }
 
 
 

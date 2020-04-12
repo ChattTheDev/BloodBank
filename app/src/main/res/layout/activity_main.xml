@@ -1,146 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/button">
 
-    <ImageView
-        android:id="@+id/enterimage"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_image_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029" />
+     <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="277dp"
-        android:layout_height="485dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.772">
+          <com.mikhaellopez.circularimageview.CircularImageView
+              android:layout_width="150dp"
+              android:layout_height="150dp"
+              android:src="@drawable/ic_image_black_24dp"
+              android:layout_gravity="center"
+              android:layout_marginTop="25dp"
+              android:id="@+id/enterimage"
+              app:civ_border_color="#F9A825"
+              app:civ_border_width="4dp"
+              app:civ_shadow="true"
+              app:civ_shadow_radius="10dp"
+              app:civ_shadow_color="#ffffff"/>
+          <Button
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/mainbutton"
+              android:text="Choose Image"
+              android:textStyle="bold"
+              android:layout_marginLeft="24dp"
+              android:layout_marginRight="24dp"
+              android:layout_marginTop="10dp"
+              android:id="@+id/imagechooser"/>
 
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextbackground"
+              android:hint="Your name"
+              android:padding="15dp"
+              android:layout_marginLeft="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_marginTop="15dp"
+              android:id="@+id/name"
+              android:inputType="textPersonName" />
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextbackground"
+              android:hint="Phone No ( With Country Code )"
+              android:padding="15dp"
+              android:layout_marginLeft="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_marginTop="15dp"
+              android:id="@+id/phoneno"
+              android:inputType="phone" />
 
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittextbackground"
-                android:hint="Your Name"
-                android:padding="15dp" />
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextbackground"
+              android:hint="Address"
+              android:padding="15dp"
+              android:layout_marginLeft="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_marginTop="15dp"
+              android:id="@+id/address"
+              android:inputType="text" />
 
-
-
-            <EditText
-                android:id="@+id/address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittextbackground"
-                android:hint="Address"
-                android:maxLines="1"
-                android:layout_marginTop="10dp"
-                android:padding="10dp" />
-
-
-
-
-            <EditText
-                android:id="@+id/phoneno"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/edittextbackground"
-                android:hint="Phone No"
-                android:maxLines="1"
-                android:layout_marginTop="10dp"
-                android:padding="10dp" />
-
-
-
-
-            <EditText
-                android:id="@+id/enterstate"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/edittextbackground"
-                android:hint="State"
-                android:layout_marginTop="10dp"
-                android:maxLines="1"
-                android:padding="10dp" />
-
-
-
-            <EditText
-                android:id="@+id/pincode"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/edittextbackground"
-                android:hint="Pincode"
-                android:layout_marginTop="10dp"
-                android:maxLines="1"
-                android:padding="10dp" />
-
-
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/bloodgroup"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/edittextbackground"
-                android:hint="Bloodgroup"
-                android:layout_marginTop="10dp"
-                android:maxLines="1"
-                android:padding="10dp" />
-
-
-        <TextView
-            android:id="@+id/uploadvalue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0.0%"
-            android:textAlignment="center"
-            android:layout_marginTop="15dp"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            />
-
-        <ProgressBar
-            android:id="@+id/progressbar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
-
-
-
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonadddb"
-        android:layout_width="223dp"
-        android:layout_height="72dp"
-        android:background="@drawable/mainbutton"
-        android:text="Add To DB"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterimage"
-        app:layout_constraintVertical_bias="0.967" />
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextbackground"
+              android:hint="State"
+              android:padding="15dp"
+              android:layout_marginLeft="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_marginTop="15dp"
+              android:id="@+id/enterstate"
+              android:inputType="text" />
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextbackground"
+              android:hint="Pincode"
+              android:padding="15dp"
+              android:layout_marginLeft="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_marginTop="15dp"
+              android:id="@+id/pincode"
+              android:inputType="number" />
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextbackground"
+              android:hint="Country"
+              android:padding="15dp"
+              android:layout_marginLeft="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_marginTop="15dp"
+              android:id="@+id/country"
+              android:inputType="textCapCharacters" />
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextbackground"
+              android:hint="Bloodgroup"
+              android:padding="15dp"
+              android:layout_marginLeft="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_marginTop="15dp"
+              android:id="@+id/bloodgroup"
+              android:inputType="textCapCharacters" />
+          <Button
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/mainbutton"
+              android:text="Add as Donor"
+              android:textStyle="bold"
+              android:id="@+id/buttonadddb"
+              android:layout_marginBottom="15dp"
+              android:layout_marginTop="25dp"
+              android:layout_marginRight="24dp"
+              android:layout_marginLeft="24dp"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+     </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ScrollView>

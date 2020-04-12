@@ -2,12 +2,12 @@ package com.example.bloodbank;
 
 public class Model {
 
-    public String name, address, phoneno, state, pin, imageUrl, bloodgroup;
+    public String name, address, phoneno, state, pin, imageUrl, bloodgroup, country;
 
     public Model() {
     }
 
-    public Model(String name, String address, String phoneno, String state, String pin, String imageUrl, String bloodgroup) {
+    public Model(String name, String address, String phoneno, String state, String pin, String imageUrl, String bloodgroup, String country) {
         this.name = name;
         this.address = address;
         this.phoneno = phoneno;
@@ -15,7 +15,16 @@ public class Model {
         this.pin = pin;
         this.imageUrl = imageUrl;
         this.bloodgroup = bloodgroup;
+        this.country = country;
 
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getBloodgroup() {

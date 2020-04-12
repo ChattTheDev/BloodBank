@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.bloodbank">
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
@@ -20,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home" />
+        <activity android:name=".Home"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".MainActivity" />
     </application>
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <dist:module dist:instant="true" />
 
